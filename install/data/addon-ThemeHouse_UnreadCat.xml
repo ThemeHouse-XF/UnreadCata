@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="ThemeHouse_UnreadCat" title="[⌂] Unread Categories" version_string="1.0.0a" version_id="1447261019" url="http://xf.themehouse.io/" install_callback_class="ThemeHouse_Install" install_callback_method="install" uninstall_callback_class="ThemeHouse_Install" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates>
+    <template title="th_option_list_option_sel_unreadcategories"><![CDATA[<xen:selectunit label="{$preparedOption.title}" name="{$fieldPrefix}[{$preparedOption.option_id}]"
+hint="{$preparedOption.hint}" inputclass="{$preparedOption.inputClass}" multiple="multiple">
+	<xen:options source="$formatParams" />
+	<xen:explain>{xen:raw $preparedOption.explain}</xen:explain>
+	<xen:html>
+		<input type="hidden" name="{$listedFieldName}" value="{$preparedOption.option_id}" />
+		{xen:raw $editLink}
+	</xen:html>
+</xen:selectunit>]]></template>
+  </admin_templates>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="controller_pre_dispatch" execute_order="10" callback_class="ThemeHouse_Listener_ControllerPreDispatch" callback_method="controllerPreDispatch" active="1" hint="" description=""/>
+    <listener event_id="file_health_check" execute_order="10" callback_class="ThemeHouse_UnreadCat_Listener_FileHealthCheck" callback_method="fileHealthCheck" active="1" hint="" description=""/>
+    <listener event_id="init_dependencies" execute_order="10" callback_class="ThemeHouse_Listener_InitDependencies" callback_method="initDependencies" active="1" hint="" description=""/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_UnreadCat_Listener_LoadClass" callback_method="loadClassModel" active="0" hint="XenForo_Model_Alert" description="XenForo_Model_Alert (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_UnreadCat_Listener_LoadClass" callback_method="loadClassModel" active="0" hint="XenForo_Model_User" description="XenForo_Model_User (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_UnreadCat_Listener_LoadClass" callback_method="loadClassController" active="0" hint="XenForo_ControllerPublic_Category" description="XenForo_ControllerPublic_Category (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_UnreadCat_Listener_LoadClass" callback_method="loadClassModel" active="0" hint="XenForo_Model_Category" description="XenForo_Model_Category (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_UnreadCat_Listener_LoadClass" callback_method="loadClassDataWriter" active="0" hint="XenForo_DataWriter_DiscussionMessage_Post" description="XenForo_DataWriter_DiscussionMessage_Post (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="ThemeHouse_UnreadCat_Listener_LoadClass" callback_method="loadClassController" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="ThemeHouse_UnreadCat_Listener_LoadClass" callback_method="loadClassDataWriter" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="ThemeHouse_UnreadCat_Listener_LoadClass" callback_method="loadClassModel" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+    <listener event_id="template_create" execute_order="20" callback_class="ThemeHouse_UnreadCat_Listener_TemplateCreate" callback_method="templateCreate" active="1" hint="" description=""/>
+  </code_event_listeners>
+  <cron>
+    <entry entry_id="th_unreadCategories" cron_class="ThemeHouse_UnreadCat_CronEntry_UnreadCategories" cron_method="unreadCategories" active="1"><![CDATA[{"day_type":"dom","dom":["-1"],"hours":["-1"],"minutes":["55"]}]]></entry>
+  </cron>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups>
+    <group group_id="th_unreadCategories" display_order="2000" debug_only="0"/>
+    <option option_id="th_unreadCategories_nodeIds" edit_format="callback" data_type="array" can_backup="1">
+      <default_value/>
+      <edit_format_params>ThemeHouse_UnreadCat_Option_CategoryChooser::renderSelect</edit_format_params>
+      <sub_options>*</sub_options>
+      <relation group_id="th_unreadCategories" display_order="1"/>
+    </option>
+  </optiongroups>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="cron_entry_th_unreadCategories" version_id="1395998568" version_string="1.0.0"><![CDATA[Create Alerts for Unread Categories]]></phrase>
+    <phrase title="option_group_th_unreadCategories" version_id="1396025165" version_string="1.0.0"><![CDATA[Unread Categories by ThemeHouse]]></phrase>
+    <phrase title="option_group_th_unreadCategories_description" version_id="1396025165" version_string="1.0.0"><![CDATA[Options for the Unread Categories by ThemeHouse add-on.]]></phrase>
+    <phrase title="option_th_unreadCategories_nodeIds" version_id="1396025165" version_string="1.0.0"><![CDATA[Alert for Categories]]></phrase>
+    <phrase title="option_th_unreadCategories_nodeIds_explain" version_id="1396025165" version_string="1.0.0"><![CDATA[]]></phrase>
+    <phrase title="th_there_are_new_posts_in_x_unreadcategories" version_id="1396025165" version_string="1.0.0"><![CDATA[There are new posts in {category}.]]></phrase>
+    <phrase title="th_there_are_x_new_posts_in_y_unreadcategories" version_id="1396025165" version_string="1.0.0"><![CDATA[There are {unread} new posts in {category}.]]></phrase>
+    <phrase title="th_there_is_a_new_post_in_x_unreadcategories" version_id="1396025165" version_string="1.0.0"><![CDATA[There is a new post in {category}.]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates>
+    <template title="alert_unread_category_th_unread" version_id="1396025165" version_string="1.0.0"><![CDATA[<xen:if is="{$message_count} >= {$content.message_count}">
+	{xen:phrase th_there_are_new_posts_in_x_unreadcategories,
+		'category=<a href="{xen:link categories, $content}" class="PopupItemLink">{$content.title}</a>'}
+<xen:elseif is="({$content.message_count} - {$message_count}) == 1" />
+	{xen:phrase th_there_is_a_new_post_in_x_unreadcategories,
+		'category=<a href="{xen:link categories, $content}" class="PopupItemLink">{$content.title}</a>'}
+<xen:else />
+	{xen:phrase th_there_are_x_new_posts_in_y_unreadcategories,
+		'unread={xen:calc '{$content.message_count}-{$message_count}'}',
+		'category=<a href="{xen:link categories, $content}" class="PopupItemLink">{$content.title}</a>'}
+</xen:if>]]></template>
+  </templates>
+  <public_template_modifications>
+    <modification template="footer" modification_key="th_copyrightNotice_unreadCat" description="Copyright notice for [⌂] Unread Categories" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+    <modification template="footer" modification_key="th_copyrightNotice_unreadCategories" description="Copyright notice for Unread Categories by ThemeHouse" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
